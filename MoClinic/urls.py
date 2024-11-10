@@ -21,5 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('StaffApplication.urls')),
     path('doc/',include("DoctorApplication.urls")),
-    path('patient/',include("PatientApplication"))
+    path('patient/',include("PatientManagement.urls"))
 ]
