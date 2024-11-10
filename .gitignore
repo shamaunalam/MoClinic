@@ -1,0 +1,9 @@
+DoctorApplication/__pycache__/
+DoctorApplication/migrations/__pycache__/
+MoClinic/__pycache__/urls.cpython-312.pyc
+MoClinic/__pycache__/wsgi.cpython-312.pyc
+PatientManagement/__pycache__/
+PatientManagement/migrations/__pycache__/
+StaffApplication/__pycache__/
+StaffApplication/migrations/__pycache__/
+db.sqlite3
