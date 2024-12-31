@@ -53,6 +53,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'MoClinic.urls'
+AUTH_USER_MODEL = 'DoctorApplication.CustomUser'
 
 TEMPLATES = [
     {
@@ -77,10 +78,21 @@ WSGI_APPLICATION = 'MoClinic.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+
+    'default': 
+    {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'hospital_db', #change it databasename
+            'USER': 'postgres', #change it database user name
+            'PASSWORD': '2609', # change user database password
+            # 'HOST': '192.168.29.185',
+            'HOST': '192.168.76.162',
+            'PORT':'5432',
+            }
 }
 
 
@@ -101,6 +113,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
 
 
 # Internationalization
