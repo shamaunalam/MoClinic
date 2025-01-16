@@ -57,64 +57,98 @@ def register_patient(request):
 
 def enqueue_patient(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
-        patient = get_object_or_404(PatientDetails, patient_ID=data.get('patient_id'))
+        patient_id = request.POST.get('patient_id')
+        queue_position = request.POST.get('queue_position')
+
+        if not patient_id or not queue_position:
+            return JsonResponse({"error": "patient_id and queue_position are required"}, status=400)
+
+        patient = get_object_or_404(PatientDetails, patient_ID=patient_id)
+
         PatientQueue.objects.create(
             patient=patient,
-            queue_position=data.get('queue_position')
+            queue_position=queue_position
         )
-        return JsonResponse({"message": "Patient added to queue"}, status=200)
+        return JsonResponse({"message": "Patient added to queue", "patient_id": patient_id}, status=200)
+
     return JsonResponse({"error": "Invalid request method"}, status=400)
 
 
 def dequeue_patient(request):
     if request.method == 'POST':
         queue_entry = PatientQueue.objects.order_by('queue_position').first()
+
         if queue_entry:
+            patient_id = queue_entry.patient.patient_ID
             queue_entry.delete()
-            return JsonResponse({"message": "Patient dequeued", "patient_id": str(queue_entry.patient.patient_ID)}, status=200)
+            return JsonResponse({"message": "Patient dequeued", "patient_id": str(patient_id)}, status=200)
+
         return JsonResponse({"error": "Queue is empty"}, status=404)
+
     return JsonResponse({"error": "Invalid request method"}, status=400)
 
 
 def call_patient(request):
-    if request.method == 'GET':
+    if request.method == 'POST':
         queue_entry = PatientQueue.objects.order_by('queue_position').first()
+
         if queue_entry:
             return JsonResponse({"message": "Patient called", "patient_id": str(queue_entry.patient.patient_ID)}, status=200)
+
         return JsonResponse({"error": "Queue is empty"}, status=404)
+
     return JsonResponse({"error": "Invalid request method"}, status=400)
 
 
 def get_patient_details(request):
-    if request.method == 'GET':
-        patient_id = request.GET.get('patient_id')
+    if request.method == 'POST':
+        patient_id = request.POST.get('patient_id')
+
+        if not patient_id:
+            return JsonResponse({"error": "patient_id is required"}, status=400)
+
         patient = get_object_or_404(PatientDetails, patient_ID=patient_id)
+
         patient_data = {
-            "user_id": patient.user_id,
+            "user_id": str(patient.user.user_id),
+            "email": patient.user.email,
+            "first_name": patient.user.first_name,
+            "last_name": patient.user.last_name,
             "weight": patient.weight,
             "height": patient.height,
             "temperature": patient.temperature,
             "blood_pressure": patient.blood_pressure,
             "BMI": patient.BMI,
-            "cholesterol": patient.cholesterol,
             "blood_sugar": patient.blood_sugar,
-            "date_visited": patient.date_visited,
-            "date_treated": patient.date_treated,
+            "symptoms": patient.symptoms,
+            "date_visited": patient.date_visited.strftime("%d-%m-%Y"),
+            "date_treated": patient.date_treated.strftime("%d-%m-%Y") if patient.date_treated else None,
         }
+
         return JsonResponse(patient_data, status=200)
+
     return JsonResponse({"error": "Invalid request method"}, status=400)
 
 
 def prescribe(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
-        patient = get_object_or_404(PatientDetails, patient_ID=data.get('patient_id'))
+        patient_id = request.POST.get('patient_id')
+        medicine = request.POST.get('medicine')
+        dosage = request.POST.get('dosage')
+        instructions = request.POST.get('instructions')
+
+        if not patient_id or not medicine or not dosage or not instructions:
+            return JsonResponse({"error": "All fields are required: patient_id, medicine, dosage, instructions"}, status=400)
+
+        patient = get_object_or_404(PatientDetails, patient_ID=patient_id)
+
         prescription = Prescription.objects.create(
             patient=patient,
-            medicine=data.get('medicine'),
-            dosage=data.get('dosage'),
-            instructions=data.get('instructions')
+            medicine=medicine,
+            dosage=dosage,
+            instructions=instructions
         )
+
         return JsonResponse({"message": "Prescription added successfully", "prescription_id": str(prescription.prescription_ID)}, status=200)
+
     return JsonResponse({"error": "Invalid request method"}, status=400)

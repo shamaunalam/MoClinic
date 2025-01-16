@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-q!sp3jn*c9rl7n18mwbaa$enx8cs05p5=)31d8ye$5472j@2x5
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+import os
 
 # Application definition
 
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'PatientManagement',
     'StaffApplication',
-    'DoctorApplication'
+    'DoctorApplication',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +58,9 @@ AUTH_USER_MODEL = 'DoctorApplication.CustomUser'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR,'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
