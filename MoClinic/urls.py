@@ -26,8 +26,13 @@ from django.contrib import admin
 from django.urls import path,include
 
 
+
+
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('patient/',include('PatientManagement.urls')),
     path("Doctor/", include('DoctorApplication.urls')),
-    path('patient/',include('PatientManagement.urls'))
+   
+    
+   
     ]
