@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashbord</title>
+    <link rel="icon" href="/kali/imgs/logo.png" type="image/x-icon">
+    <!-- ======= Styles ====== -->
+    <link rel="stylesheet" href="kali/css/style.css">
+</head>
+
+<body>
+
+    <!-- Loading Page -->
+     
+    <div id="kali">
+        <div class="loading">
+		   <span style="--i:1">L</span>
+		   <span style="--i:2">o</span>
+		   <span style="--i:3">a</span>
+		   <span style="--i:4">d</span>
+		   <span style="--i:5">i</span>
+		   <span style="--i:6">n</span>
+		   <span style="--i:7">g</span>
+		   <span style="--i:8">💉</span>
+		   <span style="--i:9">💉</span>
+		   <span style="--i:10">💉</span>
+           <span style="--i:11">💉</span>
+		</div>
+    </div>
+
+    <!--  Navigation  -->
+
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <img src="kali/imgs/logo.png" alt="logo">
+                        </span>
+                        <h3 class="#">Mo Clinic</h3>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span class="title">Dashboard</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">Patient</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="help-outline"></ion-icon>
+                        </span>
+                        <span class="title">Help</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" id="signOutBtn">
+                      <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                      <span class="title">Sign Out</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="date">
+                <div class="datetime">
+                  <div id="date"></div>
+                  <div id="time"></div>
+                  <div id="day"></div>
+                  <!-- <h4>Made By Kali</h4> -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Main  -->
+
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+
+                <div class="doctor">
+                    <label>
+                        <h2>DOCTOR DASHBOARD</h2>
+                    </label>
+                </div>
+                <div class="use">
+
+                </div>
+            </div>
+
+            <!-- cards -->
+
+            <div class="cardBox">
+                <div class="card">
+                    <div>
+                        <div class="numbers" data-target="150">0</div>
+                        <div class="cardName">Total Patient</div>
+                    </div>
+                    <div class="iconBx">
+                        <ion-icon name="people-outline"></ion-icon>
+                    </div>
+                </div>
+        
+                <div class="card">
+                    <div>
+                        <div class="numbers" data-target="80">0</div>
+                        <div class="cardName">View Patient</div>
+                    </div>
+                    <div class="iconBx">
+                        <ion-icon name="people-outline"></ion-icon>
+                    </div>
+                </div>
+        
+                <div class="card">
+                    <div>
+                        <div class="numbers" data-target="65">0</div>
+                        <div class="cardName">Waiting-Patient</div>
+                    </div>
+                    <div class="iconBx">
+                        <ion-icon name="people-outline"></ion-icon>
+                    </div>
+                </div>
+        
+                <div class="card">
+                    <div>
+                        <div class="numbers" data-target="5">0</div>
+                        <div class="cardName">Critical-Patient</div>
+                    </div>
+                    <div class="iconBx">
+                        <ion-icon name="people-outline"></ion-icon>
+                    </div>
+                </div>
+            </div>
+
+            <!--  Patient details -->
+
+            <div class="details">
+
+                <div class="patient1">
+                    <div class="cardHeader">
+                        <h2>Patient Details</h2>
+                    </div>
+
+                    <div class="patientbox">
+                        <div class="cardp">
+                            <div class="info-box">
+                                <p>Name: <span id="name"></span></p>
+                                <p>Age: <span id="age"></span></p>
+                                <p>Sex: <span id="sex"></span></p>
+                            </div>
+                        </div>
+
+                        <div class="data-box">
+                            <div class="data-item">
+                                <h4>Body Temperature</h4>
+                                <p><span id="temperature"></span> °C</p>
+                            </div>
+                            <div class="data-item">
+                                <h4>Respiratory Rate</h4>
+                                <p><span id="respiratory"></span> bpm</p>
+                            </div>
+                            <div class="data-item">
+                                <h4>Blood Glucose</h4>
+                                <p><span id="glucose"></span> mg/dL</p>
+                            </div>
+                            <div class="data-item">
+                                <h4>Blood cholesterol</h4>
+                                <p><span id="cholesterol"></span> mg/dL</p>
+                            </div>
+                        </div>
+
+                        <div class="textariya">
+                            <label for="symptomsText">Symptoms</label>
+                            <textarea id="symptomsText" placeholder="Symptoms here..."></textarea>
+                        </div> 
+
+                    </div>
+                </div>
+                
+                <!-- Patient Anatomy -->
+
+                <div class="human">
+                    <div class="cardHeader">
+                      <h2>Patient Anatomy</h2>
+                    </div>
+                    <div class="part">
+                      <img src="kali/imgs/human body.png" alt="">
+                    </div>
+                  
+                    <div class="gauges">
+                        <div class="gauge">
+                          <h3>Heart Rate</h3>
+                          <canvas id="heartRateGauge"></canvas>
+                          <p id="heartRateValue">82.83 bpm</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Patient organ -->
+
+                <div class="patient2">
+                    <div class="cardHeader">
+                        <h2>Organ Condition</h2>
+                        <a href="#" class="btn">View All</a>
+                    </div>
+                    
+                    <div class="organ-stats">
+                        <ul>
+                            <li data-organ="brain">
+                                <img src="kali/imgs/brain.png" alt="Brain Icon">
+                                <span>Brain:</span>
+                                <div class="progress-bar">
+                                    <div class="progress"></div>
+                                </div>
+                                <span class="percentage">0%</span>
+                            </li>
+                            
+                            <li data-organ="eye">
+                                <img src="kali/imgs/Eye.png" alt="Eye Icon">
+                                <span>Eye:</span>
+                                <div class="progress-bar">
+                                    <div class="progress"></div>
+                                </div>
+                                <span class="percentage">0%</span>
+                            </li>
+                            <li data-organ="heart">
+                                <img src="kali/imgs/heart.png" alt="Heart Icon">
+                                <span>Heart:</span>
+                                <div class="progress-bar">
+                                    <div class="progress"></div>
+                                </div>
+                                <span class="percentage">0%</span>
+                            </li>
+                            <li data-organ="liver">
+                                <img src="kali/imgs/liver.png" alt="Liver Icon">
+                                <span>Liver:</span>
+                                <div class="progress-bar">
+                                    <div class="progress"></div>
+                                </div>
+                                <span class="percentage">0%</span>
+                            </li>
+                            <li data-organ="lungs">
+                                <img src="kali/imgs/lungs.png" alt="Lungs Icon">
+                                <span>Lungs:</span>
+                                <div class="progress-bar">
+                                    <div class="progress"></div>
+                                </div>
+                                <span class="percentage">0%</span>
+                            </li>
+                            <li data-organ="stomach">
+                                <img src="kali/imgs/stomach.png" alt="Stomach Icon">
+                                <span>Stomach:</span>
+                                <div class="progress-bar">
+                                    <div class="progress"></div>
+                                </div>
+                                <span class="percentage">0%</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="Diagnosis">
+                        <a href="#" class="btn">End Diagnosis</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--  Scripts  -->
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="kali/js/main.js"></script>
+    <script src="kali/js/kali.js"></script>
+    <script src="kali/js/logout.js"></script>
+    <script src="kali/js/organ.js"></script>
+    <script src="kali/js/chat.js"></script>
+    <script src="kali/js/datetime.js"></script>
+
+
+    <!-- ionicons -->
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

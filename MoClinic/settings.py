@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-q!sp3jn*c9rl7n18mwbaa$enx8cs05p5=)31d8ye$5472j@2x5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []  
 import os
 
 # Application definition
@@ -80,21 +80,15 @@ WSGI_APPLICATION = 'MoClinic.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
+    'default': {
 
-    'default': 
-    {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'hospital_db', #change it databasename
-            'USER': 'postgres', #change it database user name
-            'PASSWORD': '2609', # change user database password
-            # 'HOST': '192.168.29.185',
-            'HOST': '192.168.76.162',
-            'PORT':'5432',
-            }
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'hospital_db',
+        'USER': 'postgres',
+        'PASSWORD': '2609',
+        'HOST': '192.168.133.162',  # Ensure this is the correct IP
+        'PORT': '5432',
+    }
 }
 
 

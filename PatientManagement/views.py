@@ -5,6 +5,7 @@ from django.utils.timezone import now
 from DoctorApplication.models import CustomUser
 from .models import PatientDetails, PatientQueue, Medicines, Tests, Prescription
 import json
+
 from datetime import datetime
 @csrf_exempt
 def register_patient(request):
@@ -27,6 +28,7 @@ def register_patient(request):
         temperature = request.POST.get('temperature','')
         blood_pressure = request.POST.get('blood_pressure','')
         BMI = request.POST.get('BMI','')
+        
         O2level = request.POST.get('O2level','')
         blood_sugar = request.POST.get('blood_sugar','')
         symptoms = request.POST.get('symptoms','')
@@ -57,34 +59,27 @@ def register_patient(request):
 
 def enqueue_patient(request):
     if request.method == 'POST':
-        patient_id = request.POST.get('patient_id')
-        queue_position = request.POST.get('queue_position')
-
-        if not patient_id or not queue_position:
-            return JsonResponse({"error": "patient_id and queue_position are required"}, status=400)
-
-        patient = get_object_or_404(PatientDetails, patient_ID=patient_id)
-
-        PatientQueue.objects.create(
-            patient=patient,
-            queue_position=queue_position
+        current_pos = 1
+        if PatientQueue.objects.filter(date_enqueued=datetime.today).exists():
+            current_pos = PatientQueue.objects.filter(date_enqueued=datetime.today).order_by('queue_position').last().queue_position +1
+        
+        queue = PatientQueue.objects.create(
+            patient = PatientDetails.objects.get(patient_ID=request.POST.get('patient_ID')),
+            queue_position = current_pos
         )
-        return JsonResponse({"message": "Patient added to queue", "patient_id": patient_id}, status=200)
-
+        queue.save()
+        return JsonResponse({"message": "Patient added to queue"}, status=200)
     return JsonResponse({"error": "Invalid request method"}, status=400)
+
 
 
 def dequeue_patient(request):
     if request.method == 'POST':
         queue_entry = PatientQueue.objects.order_by('queue_position').first()
-
         if queue_entry:
-            patient_id = queue_entry.patient.patient_ID
             queue_entry.delete()
-            return JsonResponse({"message": "Patient dequeued", "patient_id": str(patient_id)}, status=200)
-
+            return JsonResponse({"message": "Patient dequeued", "patient_id": str(queue_entry.patient.patient_ID)}, status=200)
         return JsonResponse({"error": "Queue is empty"}, status=404)
-
     return JsonResponse({"error": "Invalid request method"}, status=400)
 
 
