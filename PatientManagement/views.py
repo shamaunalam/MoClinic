@@ -16,16 +16,23 @@ from datetime import datetime
 @csrf_exempt
 def register_patient(request):
     if request.method == 'POST':
-        # Get the fields from the request
-        email = request.POST.get('email', '')
-        first_name = request.POST.get('first_name', '')
-        last_name = request.POST.get('last_name', '')
-        date_of_birth = request.POST.get('date_of_birth', '')
+        # Parse the request body as JSON
+        try:
+            data = json.loads(request.body)
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON format."}, status=400)
+        
+        # Get the fields from the request data
+        email = data.get('email', '')
+        first_name = data.get('first_name', '')
+        last_name = data.get('last_name', '')
+        date_of_birth = data.get('date_of_birth', '')
         
         # Validate input fields
         if not email or not first_name or not last_name or not date_of_birth:
             return JsonResponse({"error": "Email, First Name, Last Name, and Date of Birth are required fields."}, status=400)
 
+        # Try to convert the date_of_birth string to a datetime object
         try:
             date_of_birth = datetime.strptime(date_of_birth, "%d-%m-%Y")
         except ValueError:
@@ -41,20 +48,20 @@ def register_patient(request):
                 last_name=last_name,
                 date_of_birth=date_of_birth
             )
-            user.set_password("password@123")
+            user.set_password("password@123")  # You can adjust the default password or make it dynamic
             user.save()
 
-        # Get other fields from the request and handle any missing/invalid data
+        # Get other fields from the request data and handle any missing/invalid data
         try:
-            weight = float(request.POST.get('weight', '0'))
-            height = float(request.POST.get('height', '0'))
-            temperature = float(request.POST.get('temperature', '0'))
-            blood_pressure = request.POST.get('blood_pressure', '')
-            BMI = float(request.POST.get('BMI', '0'))
-            O2level = float(request.POST.get('O2level', '0'))
-            blood_sugar = float(request.POST.get('blood_sugar', '0'))
-            symptoms = request.POST.get('symptoms', '')
-            date_visited = request.POST.get('date_visited', '')
+            weight = float(data.get('weight', '0'))
+            height = float(data.get('height', '0'))
+            temperature = float(data.get('temperature', '0'))
+            blood_pressure = data.get('blood_pressure', '')
+            BMI = float(data.get('BMI', '0'))
+            O2level = float(data.get('O2level', '0'))
+            blood_sugar = float(data.get('blood_sugar', '0'))
+            symptoms = data.get('symptoms', '')
+            date_visited = data.get('date_visited', '')
 
             # Validate date_visited
             if not date_visited:
